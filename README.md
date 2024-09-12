@@ -6,7 +6,7 @@
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=amritakaith1230&label=Profile%20views&color=0e75b6&style=flat" alt="amritakaith1230" /> </p>
 
-- 🌱 I have completed and still an eager to learn new languages **HTML, CSS, and Javascript for Web Developers**
+- 🌱 I have completed and still eager to learn new languages **HTML, CSS, and Javascript for Web Developers**
 
 - 👨‍💻 All of my projects are available at [https://github.com/amritakaith1230/amritakaith1230.github.io.git](https://github.com/amritakaith1230/amritakaith1230.github.io.git)
 
@@ -14,7 +14,7 @@
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
-<a href="https://linkedin.com/in/amrita kaithwas" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="amrita kaithwas" height="30" width="40" /></a>
+<a href="http://www.linkedin.com/in/amrita-kaithwas-b31084328" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="amrita kaithwas" height="30" width="40" /></a>
 </p>
 
 <h3 align="left">Languages and Tools:</h3>
