@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Desi Delight</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .menu-page {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Menu Categories */
+        .menu-category {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .menu-category h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #f8b400;
+        }
+
+        /* Menu Items */
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        .menu-item img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .menu-item-details {
+            flex: 1;
+            margin-left: 20px;
+            text-align: left;
+        }
+        .menu-item-details h3 {
+            margin: 0;
+            font-size: 1.6rem;
+            color: #333;
+        }
+        .menu-item-details p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .menu-item-details .price {
+            font-weight: bold;
+            color: #f8b400;
+        }
+
+        /* Add to Cart Button */
+        .add-to-cart {
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            background-color: #f8b400;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .add-to-cart:hover {
+            background-color: #e69a00;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #f8b400;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #e69a00;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-page">
+        <h1>Menu - Desi Delight</h1>
+        
+        <!-- Vegetables -->
+        <div class="menu-category">
+            <h2>Vegetables</h2>
+            <div class="menu-item">
+                <img src="Paneer Butter Masala.jpeg" alt="Paneer Butter Masala">
+                <div class="menu-item-details">
+                    <h3>Paneer Butter Masala</h3>
+                    <p>A rich and creamy paneer dish with aromatic spices.</p>
+                    <p class="price">₹180</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="daal tadka.jpeg" alt="Dal Tadka">
+                <div class="menu-item-details">
+                    <h3>Dal Tadka</h3>
+                    <p>Spicy and savory lentil dish with a tempering of garlic and spices.</p>
+                    <p class="price">₹150</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="vegetable-curry-recipe.jpg" alt="Mixed Vegetable Curry">
+                <div class="menu-item-details">
+                    <h3>Mixed Vegetable Curry</h3>
+                    <p>A medley of fresh vegetables cooked in a savory curry sauce.</p>
+                    <p class="price">₹160</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="aloo-gobi-recipe.jpg" alt="Aloo Gobi">
+                <div class="menu-item-details">
+                    <h3>Aloo Gobi</h3>
+                    <p>A comforting dish of potatoes and cauliflower with spices.</p>
+                    <p class="price">₹140</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="palak-paneer-recipe1.webp" alt="Palak Paneer">
+                <div class="menu-item-details">
+                    <h3>Palak Paneer</h3>
+                    <p>Cubes of paneer in a spiced spinach gravy.</p>
+                    <p class="price">₹170</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Non-Vegetarian -->
+        <div class="menu-category">
+            <h2>Non-Vegetarian</h2>
+            <div class="menu-item">
+                <img src="butter-chicken.jpg" alt="Butter Chicken">
+                <div class="menu-item-details">
+                    <h3>Butter Chicken</h3>
+                    <p>A creamy chicken curry cooked in a rich tomato gravy.</p>
+                    <p class="price">₹200</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="chicken-biryani.webp" alt="Chicken Biryani">
+                <div class="menu-item-details">
+                    <h3>Chicken Biryani</h3>
+                    <p>Flavorful rice cooked with chicken and aromatic spices.</p>
+                    <p class="price">₹220</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="egg rice.jpeg" alt="Egg Rice">
+                <div class="menu-item-details">
+                    <h3>Egg Rice</h3>
+                    <p>Aromatic lamb curry with a rich and flavorful sauce.</p>
+                    <p class="price">₹210</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="kebab.jpg" alt="Kebabs">
+                <div class="menu-item-details">
+                    <h3>Kebabs</h3>
+                    <p>Grilled pieces of marinated meat served with mint chutney.</p>
+                    <p class="price">₹190</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="fish curry.webp" alt="Fish Curry">
+                <div class="menu-item-details">
+                    <h3>Fish Curry</h3>
+                    <p>Delicate fish pieces cooked in a spicy and tangy curry.</p>
+                    <p class="price">₹210</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Drinks -->
+        <div class="menu-category">
+            <h2>Drinks</h2>
+            <div class="menu-item">
+                <img src="Mango-Lassi-08589.jpg" alt="Mango Lassi">
+                <div class="menu-item-details">
+                    <h3>Mango Lassi</h3>
+                    <p>A refreshing mango yogurt drink with a hint of cardamom.</p>
+                    <p class="price">₹80</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="sweet-lassi-recipe-featured.webp" alt="Sweet Lassi">
+                <div class="menu-item-details">
+                    <h3>Sweet Lassi</h3>
+                    <p>A sweet and cooling yogurt drink perfect for hot days.</p>
+                    <p class="price">₹70</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="Chai.webp" alt="Chai">
+                <div class="menu-item-details">
+                    <h3>Chai</h3>
+                    <p>Classic Indian tea brewed with spices and milk.</p>
+                    <p class="price">₹30</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="Masala-Soda-2-3.jpg" alt="Masala Soda">
+                <div class="menu-item-details">
+                    <h3>Masala Soda</h3>
+                    <p>A fizzy soda with a hint of spices.</p>
+                    <p class="price">₹50</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="cold-coffee-with-icecream.jpg" alt="Cold Coffee">
+                <div class="menu-item-details">
+                    <h3>Cold Coffee</h3>
+                    <p>Refreshing cold coffee with a touch of cream.</p>
+                    <p class="price">₹90</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Naan & Breads -->
+        <div class="menu-category">
+            <h2>Naan & Breads</h2>
+            <div class="menu-item">
+                <img src="butter-naan.jpg" alt="Butter Naan">
+                <div class="menu-item-details">
+                    <h3>Butter Naan</h3>
+                    <p>Soft and fluffy naan bread brushed with butter.</p>
+                    <p class="price">₹50</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="Garlic-Naan-500x375.jpg" alt="Garlic Naan">
+                <div class="menu-item-details">
+                    <h3>Garlic Naan</h3>
+                    <p>Delicious naan topped with garlic and herbs.</p>
+                    <p class="price">₹60</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="Stuffed Naan.webp" alt="Stuffed Naan">
+                <div class="menu-item-details">
+                    <h3>Stuffed Naan</h3>
+                    <p>Naan stuffed with spiced potatoes and peas.</p>
+                    <p class="price">₹70</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="Plain Naan.jpeg" alt="Plain Naan">
+                <div class="menu-item-details">
+                    <h3>Plain Naan</h3>
+                    <p>Classic naan, perfect with any curry.</p>
+                    <p class="price">₹45</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="tandoori-roti-recipe.jpg" alt="Tandoori Roti">
+                <div class="menu-item-details">
+                    <h3>Tandoori Roti</h3>
+                    <p>Whole wheat roti baked in a tandoor for a smoky flavor.</p>
+                    <p class="price">₹40</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <a href="food cafe.html" class="back-button">Back to Home</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,271 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+/* Header Section Styling */
+header {
+    background: url('restaurant.bg.jpg') no-repeat center center; /* Background image positioning */
+    background-size: cover; /* Image will cover the entire section */
+    height: 100vh; /* Full screen height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+    position: relative; /* Keeps content within header */
+    overflow: hidden; /* Prevents content overflow */
+}
+
+/* Subtle Fade-In Animation */
+header h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    margin: 0;
+    opacity: 0;
+    animation: fadeIn 2s ease-in forwards; /* Smooth fade-in for text */
+}
+
+header p {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5rem;
+    margin: 20px 0;
+    opacity: 0;
+    animation: fadeIn 3s ease-in forwards;
+}
+
+header .btn {
+    background-color: #ff5733;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    margin-top: 20px;
+    opacity: 0;
+    animation: fadeIn 4s ease-in forwards; /* Fade-in for button */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+header .btn:hover {
+    background-color: #ff7844; /* Button color change on hover */
+}
+
+/* Keyframes for Fade-In Animation */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    header .btn {
+        font-size: 1rem;
+        padding: 8px 16px;
+    }
+}
+
+
+section {
+    padding: 60px 0;
+}
+
+/* About Us Section */
+#about {
+    background-color: #f8b400; /* Warm mustard-yellow for Desi theme */
+    color: #fff; /* White text for contrast */
+    padding: 100px 30px; /* Increased padding for larger section */
+    text-align: center; /* Center aligned text */
+    font-family: 'Arial', sans-serif; /* Simple, clean font */
+}
+
+#about h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; /* Larger heading */
+    margin-bottom: 30px; /* Increased margin for spacing */
+    font-weight: bold;
+}
+
+#about p {font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; /* Larger paragraph text */
+    max-width: 900px; /* Limits width for better readability */
+    margin: 0 auto 50px auto; /* Centers the text block */
+    line-height: 1.8; /* Better line spacing */
+}
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #about h2 {
+        font-size: 3rem;
+    }
+
+    #about p {
+        font-size: 1.5rem;
+    }
+
+    .contact-details h2 {
+        font-size: 2rem;
+    }
+
+    .contact-details p {
+        font-size: 1.2rem;
+    }
+}
+
+
+/* Contact Details */
+#contact{
+    color:white;
+    background-color:#333;
+}
+.contact-container {
+   
+    margin-top: 50px;
+}
+
+.contact-container h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; /* Large subheadings */
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.contact-container p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; /* Bigger paragraph text */
+    line-height: 1.6;
+    margin: 0;
+}
+
+.contact-container a {
+    color: #fff; /* White color for links */
+    text-decoration: underline; /* Underline the phone number */
+}
+
+
+.contact-container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #ff5733;
+}
+/* Media Queries for Mobile Devices */
+@media (max-width: 768px) {
+    .contact-container {
+        width: 90%;
+        margin-top: 30px;
+    }
+
+    .contact-container h2 {
+        font-size: 2rem; /* Slightly smaller subheadings */
+    }
+
+    .contact-container p {
+        font-size: 1.2rem; /* Slightly smaller paragraph text */
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-container {
+        width: 95%;
+        margin-top: 20px;
+    }
+
+    .contact-container h2 {
+        font-size: 1.8rem; /* Smaller subheadings for very small screens */
+    }
+
+    .contact-container p {
+        font-size: 1rem; /* Smaller paragraph text */
+    }
+}
+    
+/* Gallery Section */
+#gallery {
+    background-color:#005792; /* Light background for the gallery */
+    padding: 80px 20px; /* Space around the gallery */
+    text-align: center; /* Center align heading */
+}
+
+.gallery-container {
+    max-width: 1200px; /* Limits width for readability */
+    margin: 0 auto; /* Centers the container */
+}
+
+#gallery h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; /* Large heading */
+    margin-bottom: 30px; /* Space below heading */
+    font-weight: bold;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid layout */
+    gap: 20px; /* Space between images */
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden; /* Ensures content stays within bounds */
+    border: 5px solid #f8b400; /* Warm border color to match theme */
+    border-radius: 8px; /* Rounded corners */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    height: 300px; /* Fixed height for equal size images */
+    display: flex; /* Center align content */
+    justify-content: center;
+    align-items: center;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    max-height: 100%;
+    object-fit: cover; /* Ensures image covers the area without distortion */
+}
+
+.gallery-item:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+}
+
+/* Specific styling for Tasty Food */
+.TastyFood {
+    grid-column: span 1; /* Adjust as needed */
+    grid-row: span 1; /* Adjust as needed */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #gallery h2 {
+        font-size: 3rem;
+    }
+
+    .gallery-item {
+        height: 200px; /* Adjusted height for smaller screens */
+    }
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
