@@ -153,11 +153,19 @@ section {
 
 
 .contact-container {
+    display: flex;
+    flex-direction: column;
     width: 80%;
     margin: 0 auto;
     text-align: center;
     justify-content: center;
     align-items: center;
+}
+.contact-container input, .contact-container textarea {
+    width: 100%; /* Full width for inputs and textarea */
+    margin-bottom: 10px;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 

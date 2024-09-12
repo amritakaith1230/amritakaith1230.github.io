@@ -42,60 +42,107 @@
 
         /* Menu Items */
         .menu-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ddd;
-            padding: 10px 0;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        }
-        .menu-item img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-        }
-        .menu-item-details {
-            flex: 1;
-            margin-left: 20px;
-            text-align: left;
-        }
-        .menu-item-details h3 {
-            margin: 0;
-            font-size: 1.6rem;
-            color: #333;
-        }
-        .menu-item-details p {
-            margin: 5px 0;
-            color: #666;
-        }
-        .menu-item-details .price {
-            font-weight: bold;
-            color: #f8b400;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effect */
+.menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Image styling */
+.menu-item img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Details section */
+.menu-item-details {
+    flex: 1;
+    margin-left: 20px;
+    text-align: left;
+}
+
+/* Item name */
+.menu-item-details h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #333;
+}
+
+/* Item description */
+.menu-item-details p {
+    margin: 5px 0;
+    color: #666;
+}
+
+/* Price styling */
+.menu-item-details .price {
+    font-weight: bold;
+    color: #f8b400;
+}
+
+/* Mobile View Handling (Media Query) */
+@media (max-width: 768px) {
+    /* Adjust layout to vertical stack */
+    .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    /* Reduce the size of the image on mobile */
+    .menu-item img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 10px;
+    }
+
+    /* Adjust the text size for better readability */
+    .menu-item-details h3 {
+        font-size: 1.4rem;
+    }
+
+    .menu-item-details p {
+        font-size: 1.1rem;
+    }
+
+    /* Increase space for the price on mobile */
+    .menu-item-details .price {
+        font-size: 1.2rem;
+    }
+}
+
 
         /* Add to Cart Button */
         .add-to-cart {
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            background-color: #f8b400;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+        position: sticky;
+        bottom: 10px;
+        right: 10px; /* Adjusted for mobile */
+        background-color: #f8b400;
+        color: white;
+        border: none;
+        padding: 12px 20px; /* Increased padding for better visibility */
+        border-radius: 5px;
+        font-size: 1.1rem; /* Slightly bigger font for mobile */
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: auto; /* Allows it to resize based on content */
+        text-align: center;
+}
+
         .add-to-cart:hover {
             background-color: #e69a00;
         }
@@ -320,7 +367,7 @@
                 <button class="add-to-cart">Add to Cart</button>
             </div>
         </div>
-
+        
         <a href="../index.html" class="back-button">Back to Home</a>
     </div>
 </body>
