@@ -116,14 +116,14 @@ span{
     margin-bottom: 2rem;
     margin-top: 1rem;
     font-size: 3.5rem;
-    padding: 0 20px;
+    padding: 0 1px;
 }
 .home-content h1{
     font-size: 7rem;
     font-weight: 700;
     margin-top: 1.5rem;
     line-height: 1;
-    padding: 0 20px;
+    padding: 0 1px;
 }
 .home-img{
     border-radius: 50%;
