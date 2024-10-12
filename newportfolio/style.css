@@ -23,7 +23,6 @@ html{
 
 body{
     background: var(--bg-color);
-    padding: 20px; 
     color: var(--text-color);
 }
 
@@ -102,7 +101,7 @@ section{
     align-items: center;
     justify-content: center;
     gap: 15rem;
-    padding: auto;
+    padding: 80px;
 }
 .home-content{
     display: flex;
