@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
+
 <body>
     <header>
         <div class="background">
@@ -25,32 +27,33 @@
                         <a href="#" onclick="showRateUs()">Rate Us</a>
                         <a href="#" onclick="showHelpline()">Helpline</a>
                         <a href="#" onclick="showFAQs()">FAQs</a>
-                            <div id="faqsModal" class="modal">
-                                <div class="modal-content">
+                        <div id="faqsModal" class="modal">
+                            <div class="modal-content">
                                 <span class="close" onclick="closeFAQs()">&times;</span>
                                 <h2>Frequently Asked Questions</h2>
                                 <p><strong>Q1: What is your service about?</strong></p>
                                 <p>A: We provide digital crafting solutions tailored to your needs.</p>
                                 <p><strong>Q2: How can I contact support?</strong></p>
                                 <p>A: You can contact us via the 'Contact Us' section.</p>
-                                </div>
                             </div>
+                        </div>
                         <a href="#" onclick="showFeedbackForm()">Feedback</a>
-                            <div id="feedbackModal" class="modal">
-                                <div class="modal-content">
-                                    <span class="close" onclick="closeFeedbackForm()">&times;</span>
-                                    <h2>Feedback Form</h2>
-                                    <textarea id="feedbackInput" placeholder="Your feedback..." rows="4" style="width: 100%;"></textarea>
-                                    <button onclick="submitFeedback()">Submit</button>
-                                </div>
+                        <div id="feedbackModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeFeedbackForm()">&times;</span>
+                                <h2>Feedback Form</h2>
+                                <textarea id="feedbackInput" placeholder="Your feedback..." rows="4"
+                                    style="width: 100%;"></textarea>
+                                <button onclick="submitFeedback()">Submit</button>
                             </div>
+                        </div>
                     </div>
-                </div>                
+                </div>
             </div>
         </div>
     </header>
     <main>
-        
+
         <section id="home" class="hero">
             <nav class="navbar">
                 <ul>
@@ -74,7 +77,15 @@
             <div class="container grid">
                 <div class="about-content">
                     <h2>About Us</h2>
-                    <p>At Web Craft, we specialize in crafting exceptional digital experiences that captivate users and deliver tangible results for your business. We understand that a website is often the first point of contact for potential customers, and we're passionate about making that interaction count. Our team of skilled designers and developers diligently plan and execute every aspect of your website, from the user interface and design aesthetics to the functionality and overall user experience. By combining technology with a deep understanding of user behavior, we create websites that not only look stunning but also engage visitors, drive conversions, and leave a lasting positive impression, ultimately leading to glowing reviews and increased customer satisfaction.</p>
+                    <p>At Web Craft, we specialize in crafting exceptional digital experiences that captivate users and
+                        deliver tangible results for your business. We understand that a website is often the first
+                        point of contact for potential customers, and we're passionate about making that interaction
+                        count. Our team of skilled designers and developers diligently plan and execute every aspect of
+                        your website, from the user interface and design aesthetics to the functionality and overall
+                        user experience. By combining technology with a deep understanding of user behavior, we create
+                        websites that not only look stunning but also engage visitors, drive conversions, and leave a
+                        lasting positive impression, ultimately leading to glowing reviews and increased customer
+                        satisfaction.</p>
                 </div>
                 <div class="about-image">
                     <img src="./images/about.png" alt="About Us">
@@ -137,7 +148,8 @@
                 <div class="testimonial-grid">
                     <div class="testimonial-item">
                         <img src="./images/girlceo.jpg" alt="Client 1">
-                        <p>"Web Craft transformed our online presence. Their expertise and creativity are unmatched!"</p>
+                        <p>"Web Craft transformed our online presence. Their expertise and creativity are unmatched!"
+                        </p>
                         <h4>Priti Gupta, CEO</h4>
                     </div>
                     <div class="testimonial-item">
@@ -147,7 +159,8 @@
                     </div>
                     <div class="testimonial-item">
                         <img src="./images/menstartup.jpg" alt="Client 3">
-                        <p>"Professional, responsive, and results-driven. Web Craft is our go-to for all things web!"</p>
+                        <p>"Professional, responsive, and results-driven. Web Craft is our go-to for all things web!"
+                        </p>
                         <h4>Ankit Bhati, Startup Founder</h4>
                     </div>
                 </div>
@@ -157,18 +170,18 @@
         <section id="contact" class="contact">
             <div class="container">
                 <h2>Contact Us</h2>
-                <form class="contact-form">
+                <form class="contact-form" name="submit-to-google-sheet">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="Name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="Email" required>
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
+                        <textarea id="message" name="Message" required></textarea>
                     </div>
                     <button type="submit" class="btn">Send Message</button>
                 </form>
@@ -178,35 +191,35 @@
     <hr>
     <footer>
         <div class="container">
-                <p>Email: webcraft546@gmail.com</p>
-                <p>&copy; 2024 Web Craft. All rights reserved.</p> 
+            <p>Email: webcraft546@gmail.com</p>
+            <p>&copy; 2024 Web Craft. All rights reserved.</p>
         </div>
     </footer>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var menuButton = document.getElementById('menuButton');
             var dropdown = document.getElementById('myDropdown');
 
-            menuButton.addEventListener('click', function() {
+            menuButton.addEventListener('click', function () {
                 dropdown.classList.toggle('show');
             });
         });
         function showRateUs() {
             alert("Thank you for considering to rate us! We appreciate your feedback.");
         }
-        
+
         function showHelpline() {
             alert("Our helpline number is: +91 425898915512. We're here to assist you!");
         }
         function showFAQs() {
             document.getElementById('faqsModal').style.display = 'block';
         }
-        
+
         function closeFAQs() {
             document.getElementById('faqsModal').style.display = 'none';
         }
-        
-        window.onclick = function(event) {
+
+        window.onclick = function (event) {
             const modal = document.getElementById('faqsModal');
             if (event.target == modal) {
                 modal.style.display = "none";
@@ -215,21 +228,40 @@
         function showFeedbackForm() {
             document.getElementById('feedbackModal').style.display = 'block';
         }
-        
+
         function closeFeedbackForm() {
             document.getElementById('feedbackModal').style.display = 'none';
         }
-        
+
         function submitFeedback() {
             const feedback = document.getElementById('feedbackInput').value;
             if (feedback) {
                 alert("Thank you for your feedback: " + feedback);
-                document.getElementById('feedbackInput').value = ''; 
-                closeFeedbackForm(); 
+                document.getElementById('feedbackInput').value = '';
+                closeFeedbackForm();
             } else {
                 alert("Please enter your feedback before submitting.");
             }
         }
+        
+        //Data Collection
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.forms['submit-to-google-sheet'];
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbw3pO6BfpWHg0GgvQKZQ7kshqFRfrAQOG6nylIupahddhEiKdcKYIJfLsOzsNp5J1Q/exec'; 
+        
+            form.addEventListener('submit', e => {
+                e.preventDefault();  
+                fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                    .then(response => {
+                        console.log('Success!', response);
+                        form.reset();  
+                    })
+                    .catch(error => console.error('Error!', error.message));
+            });
+        });
+         
+        
     </script>
 </body>
+
 </html>
