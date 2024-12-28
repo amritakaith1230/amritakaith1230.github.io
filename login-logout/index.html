@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Login-logout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .auth-btn {
+            background-color: #e74c3c;
+            color: #ffffff;
+            border: none;
+            height: 45px;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          }
+          
+          .auth-btn:hover {
+            background-color: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          }
+          
+          .auth-btn::before {
+            content: '👤';
+          }
+          
+          .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+          }
+          
+          .auth-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 350px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          }
+          
+          .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+            transition: color 0.3s ease;
+          }
+          
+          .close-btn:hover {
+            color: #e74c3c;
+          }
+          
+          .auth-form input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.7rem 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+          }
+          
+          .auth-form input:focus {
+            outline: none;
+            border-color: #3498db;
+          }
+          
+          .auth-form button {
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            background-color: #e74c3c;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+          }
+          
+          .auth-form button:hover {
+            background-color: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          }
+          
+          .auth-switch {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+          }
+          
+          .auth-switch a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+          }
+          
+          .auth-switch a:hover {
+            color: #3498db;
+          }
+          
+          .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #e74c3c;
+          }
+          
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid" style="background-color:#000000">
+        <nav class="navbar navbar-expand-lg">
+            <button class="auth-btn" id="authBtn" onclick="openAuthModal()">Account</button>
+        </nav>
+    </div>
+    <div class="auth-modal" id="authModal">
+        <div class="auth-content">
+            <span class="close-btn" onclick="closeAuthModal()">&times;</span>
+            <h2 id="authTitle">Login</h2>
+            <form class="auth-form" id="authForm">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
+                    style="display: none;" required>
+                <span id="errorMessage" style="color: red;"></span>
+                <button type="submit" id="authSubmit">Login</button>
+            </form>
+            <p class="auth-switch">
+                <span id="authSwitch" style="color: red;"></span>
+                <!-- This will be populated by JavaScript -->
+            </p>
+        </div>
+
+        <script>
+            let isLoginMode = true;
+            const authModal = document.getElementById('authModal');
+            const authForm = document.getElementById('authForm');
+            const authTitle = document.getElementById('authTitle');
+            const authSubmit = document.getElementById('authSubmit');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const errorMessage = document.getElementById('errorMessage');
+            const authBtn = document.getElementById('authBtn');
+            const authSwitch = document.getElementById('authSwitch');
+            
+            function openAuthModal() {
+                authModal.style.display = 'flex';
+            }
+            
+            function closeAuthModal() {
+                authModal.style.display = 'none';
+                resetForm();
+            }
+            
+            function toggleAuthMode() {
+              isLoginMode = !isLoginMode;  
+            
+              if (isLoginMode) {
+                  confirmPassword.style.display = 'none'; 
+                  confirmPassword.removeAttribute('required'); 
+                  authTitle.textContent = 'Login';
+                  authSubmit.textContent = 'Login';  
+                  
+                  authSwitch.innerHTML = 'Don\'t have an account? <a href="#" onclick="toggleAuthMode()">Register</a>';
+              } else {
+                  confirmPassword.style.display = 'block';  
+                  confirmPassword.setAttribute('required', 'required'); 
+                  authTitle.textContent = 'Register';  
+                  authSubmit.textContent = 'Register'; 
+            
+                  authSwitch.innerHTML = 'Already have an account? <a href="#" onclick="toggleAuthMode()">Login</a>';
+              }
+              resetForm(); 
+            }
+            
+            function resetForm() {
+              authForm.reset(); 
+              errorMessage.textContent = ''; 
+            }
+            toggleAuthMode();
+            
+            authForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+            
+                if (isLoginMode) {
+                
+                    const user = JSON.parse(localStorage.getItem(email));
+                    if (user && user.password === password) {
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        closeAuthModal();
+                        updateAuthButton();
+                        alert('Login successful!');
+                    } else {
+                        errorMessage.textContent = 'Invalid email or password';
+                    }
+                } else {
+                  
+                    const confirmPasswordValue = confirmPassword.value;
+                    if (password !== confirmPasswordValue) {
+                        errorMessage.textContent = 'Passwords do not match';
+                        return;
+                    }
+                    if (localStorage.getItem(email)) {
+                        errorMessage.textContent = 'This email is already registered';
+                        return;
+                    }
+                    const newUser = { email, password };
+                    localStorage.setItem(email, JSON.stringify(newUser));
+                    alert('Registration successful! Please log in.');
+                    toggleAuthMode(); 
+                    document.getElementById('email').value = email;
+                }
+            });
+            
+            function updateAuthButton() {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUser) {
+                    authBtn.textContent = 'Logout';
+                    authBtn.onclick = logout;
+                } else {
+                    authBtn.textContent = 'Account';
+                    authBtn.onclick = openAuthModal;
+                }
+            }
+            
+            function logout() {
+                localStorage.removeItem('currentUser');
+                updateAuthButton();
+                alert('Logged out successfully!');
+                isLoginMode = true;
+                toggleAuthMode();
+            }
+            
+            
+            updateAuthButton();
+            
+        </script>
+</body>
+
+</html>
