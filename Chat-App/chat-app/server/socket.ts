@@ -59,7 +59,7 @@ export function initializeSocket(httpServer: HTTPServer) {
       origin:
         process.env.NODE_ENV === "production"
           ? process.env.FRONTEND_URL
-          : ["http://localhost:3000", "http://localhost:3001"],
+          : ["http://localhost:3000", "https://amritakaith1230-github-io-2.onrender.com"],
       methods: ["GET", "POST"],
       credentials: true,
     },
