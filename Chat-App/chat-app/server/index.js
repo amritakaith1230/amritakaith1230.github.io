@@ -1,10 +1,27 @@
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 
-const httpServer = createServer();
+// optional: read FRONTEND_URL from env (can be single origin or comma-separated list)
+const rawFrontend = process.env.FRONTEND_URL || "http://localhost:3000";
+const allowedOrigins = rawFrontend.includes(",")
+  ? rawFrontend.split(",").map((s) => s.trim())
+  : rawFrontend; // Socket.IO accepts string or array
+
+// create a simple HTTP server with a health route so Render can probe it
+const httpServer = createServer((req, res) => {
+  if (req.url === "/health") {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("ok");
+    return;
+  }
+  // default response - don't expose internals
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("Socket server");
+});
+
 const io = new Server(httpServer, {
   cors: {
-    origin: ["http://localhost:3000"],
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
     credentials: true,
   },
