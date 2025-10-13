@@ -57,12 +57,9 @@ export function initializeSocket(httpServer: HTTPServer) {
   const io = new SocketIOServer(httpServer, {
     cors: {
       origin:
-       process.env.NODE_ENV === "production"
-          ? [process.env.FRONTEND_URL, "https://amritakaith1230-github-io-ne34.vercel.app"]
-          : [
-              "http://localhost:3000",
-              "https://amritakaith1230-github-io-2.onrender.com",
-            ],
+        process.env.NODE_ENV === "production"
+          ? process.env.FRONTEND_URL
+          : ["http://localhost:3000", "http://localhost:3001"],
       methods: ["GET", "POST"],
       credentials: true,
     },
