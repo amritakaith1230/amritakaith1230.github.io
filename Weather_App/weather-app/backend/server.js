@@ -9,15 +9,19 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5000
 
-// Middleware
+/ Middleware
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "https://amritakaith1230-github-io-3rsx.vercel.app", // Vercel frontend URL
+      "https://amritakaith1230-github-io-3.onrender.com", // Render backend URL (optional)
+    ],
     credentials: true,
-  }),
-)
-app.use(express.json())
-
+  })
+);
+app.use(cors());
 // Database connection
 connectToDatabase().catch(console.error)
 
