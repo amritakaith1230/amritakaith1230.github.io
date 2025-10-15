@@ -1,7 +1,7 @@
 import axios from "axios"
 import type { WeatherData, SearchHistoryItem } from "../types/weather"
 
-const API_BASE_URL = "http://localhost:5000/api"
+const API_BASE_URL = "https://amritakaith1230-github-io-3.onrender.com"
 
 export const weatherService = {
   getWeather: async (location: string): Promise<WeatherData> => {
