@@ -1,32 +1,32 @@
-const express = require("express")
-const cors = require("cors")
-const dotenv = require("dotenv")
-const { connectToDatabase } = require("./libs/mongodb")
-const weatherRoutes = require("./routes/weatherRoutes")
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const { connectToDatabase } = require("./libs/mongodb");
+const weatherRoutes = require("./routes/weatherRoutes");
 
-dotenv.config()
+dotenv.config();
 
-const app = express()
-const PORT = process.env.PORT || 5000
+const app = express();
+const PORT = process.env.PORT || 5000;
 
-/ Middleware
+// Middleware
 app.use(
   cors({
     origin: [
+      "https://amritakaith1230-github-io-3rsx.vercel.app", // Vercel frontend
       "http://localhost:3000",
       "http://localhost:3001",
-      "https://amritakaith1230-github-io-3rsx.vercel.app", // Vercel frontend URL
-      "https://amritakaith1230-github-io-3.onrender.com", // Render backend URL (optional)
     ],
     credentials: true,
   })
 );
-app.use(cors());
+app.use(express.json());
+
 // Database connection
-connectToDatabase().catch(console.error)
+connectToDatabase().catch(console.error);
 
 // Routes
-app.use("/api/weather", weatherRoutes)
+app.use("/api/weather", weatherRoutes);
 
 app.get("/", (req, res) => {
   res.json({
@@ -38,18 +38,19 @@ app.get("/", (req, res) => {
       "Search History",
       "Auto-suggestions",
     ],
-  })
-})
+  });
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error("Error:", err)
-  res.status(500).json({ error: "Something went wrong!" })
-})
+  console.error("Error:", err);
+  res.status(500).json({ error: "Something went wrong!" });
+});
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`)
-  console.log(`📡 API URL: http://localhost:${PORT}`)
-  console.log(`🌟 Enhanced features: Smart Search, State Recognition, MongoDB Integration`)
-})
-
+  console.log(`🚀 Server is running on port ${PORT}`);
+  console.log(`📡 API URL: http://localhost:${PORT}`);
+  console.log(
+    `🌟 Enhanced features: Smart Search, State Recognition, MongoDB Integration`
+  );
+});
