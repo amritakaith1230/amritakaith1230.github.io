@@ -14,9 +14,9 @@ cors: {
   transports: ["websocket", "polling"],
 });
 
-const PORT = process.env.PORT || 3001; 
-server.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on port ${PORT}`);
+const PORT = process.env.PORT || 3001;
+httpServer.listen(PORT, "0.0.0.0", () => {
+  console.log(`✅ Socket.IO server running on port ${PORT}`);
 });
 // In-memory storage
 const rooms = new Map();
