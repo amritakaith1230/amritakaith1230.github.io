@@ -3,11 +3,14 @@ const { Server } = require("socket.io");
 
 const httpServer = createServer();
 const io = new Server(httpServer, {
-  cors: {
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
-    credentials: true,
-  },
+cors: {
+  origin: [
+    "http://localhost:3000",
+    "https://amritakaith1230-github-io-ne34.vercel.app"
+  ],
+  methods: ["GET", "POST"],
+  credentials: true,
+},
   transports: ["websocket", "polling"],
 });
 
