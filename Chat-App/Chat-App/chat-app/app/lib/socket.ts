@@ -14,9 +14,10 @@ class SocketManager {
   connect(username: string): Socket {
     if (!this.socket || this.socket.disconnected) {
 const serverUrl =
-        process.env.NODE_ENV === "production"
-          ? process.env.NEXT_PUBLIC_SOCKET_URL || ""
-          : "http://localhost:3001";
+  process.env.NODE_ENV === "production"
+    ? "https://amritakaith1230-github-io-4.onrender.com"
+    : "http://localhost:3001";
+
 
       this.socket = io(serverUrl, {
         auth: { username },
