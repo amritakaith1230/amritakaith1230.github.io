@@ -3,14 +3,21 @@ const { Server } = require("socket.io");
 
 const httpServer = createServer();
 const io = new Server(httpServer, {
-  cors: {
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
-    credentials: true,
-  },
+cors: {
+  origin: [
+    "http://localhost:3000",
+    "https://amritakaith1230-github-io-ne34.vercel.app"
+  ],
+  methods: ["GET", "POST"],
+  credentials: true,
+},
   transports: ["websocket", "polling"],
 });
 
+const PORT = process.env.PORT || 3001;
+httpServer.listen(PORT, "0.0.0.0", () => {
+  console.log(`✅ Socket.IO server running on port ${PORT}`);
+});
 // In-memory storage
 const rooms = new Map();
 const users = new Map();
