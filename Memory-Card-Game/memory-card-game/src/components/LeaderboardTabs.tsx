@@ -10,7 +10,7 @@ interface LeaderboardTabsProps {
   currentPlayer: Player
 }
 
-const LeaderboardTabs: React.FC<LeaderboardTabsProps> = ({ scores, currentPlayer }) => {
+const LeaderboardTabs: React.FC<LeaderboardTabsProps> = ({  currentPlayer }) => {
   const [activeTab, setActiveTab] = useState<"individual" | "total">("individual")
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all")
   const [searchQuery, setSearchQuery] = useState("")
