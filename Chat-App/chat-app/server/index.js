@@ -7,11 +7,28 @@ const io = new Server(httpServer, {
     origin:
       process.env.NODE_ENV === "production"
         ? process.env.FRONTEND_URL?.split(",").map((url) => url.trim()) || []
-        : ["http://localhost:3000", "http://localhost:3001"],
+        : ["http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:3000"],
     methods: ["GET", "POST"],
     credentials: true,
   },
   transports: ["websocket", "polling"],
+  reconnection: true,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 5000,
+  reconnectionAttempts: 5,
+  pingInterval: 25000,
+  pingTimeout: 60000,
+})
+
+io.on("connection", (socket) => {
+  console.log(`User connected: ${socket.id}`)
+
+  const username = socket.handshake.auth.username
+  if (!username) {
+    socket.emit("error", "Username is required")
+    socket.disconnect()
+    return
+  }
 })
 // In-memory storage
 const rooms = new Map();
@@ -269,4 +286,6 @@ const PORT = process.env.PORT || 3001
 
 httpServer.listen(PORT, "0.0.0.0", () => {
   console.log(`Socket.IO server running on port ${PORT}`)
+  console.log(`Environment: ${process.env.NODE_ENV}`)
+  console.log(`CORS Origin: ${process.env.FRONTEND_URL || "localhost"}`)
 })
