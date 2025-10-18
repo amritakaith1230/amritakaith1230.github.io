@@ -12,7 +12,7 @@ interface GameStatsProps {
   currentPlayer: Player
 }
 
-const GameStats: React.FC<GameStatsProps> = ({ moves, time, difficulty, onNewGame, isGameComplete, currentPlayer }) => {
+const GameStats: React.FC<GameStatsProps> = ({ moves, time, difficulty, onNewGame,  currentPlayer }) => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
     const secs = seconds % 60
