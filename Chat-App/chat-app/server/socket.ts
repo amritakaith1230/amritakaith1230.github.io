@@ -1,17 +1,12 @@
-import type { Server as HTTPServer } from "http";
-import { Server as SocketIOServer } from "socket.io";
-import type { Message, ChatRoom, User } from "../app/lib/types";
-import {
-  generateId,
-  sanitizeMessage,
-  validateUsername,
-  validateRoomName,
-} from "../app/lib/utils";
+import type { Server as HTTPServer } from "http"
+import { Server as SocketIOServer } from "socket.io"
+import type { Message, ChatRoom, User } from "../app/lib/types"
+import { generateId, sanitizeMessage, validateUsername, validateRoomName } from "../app/lib/utils"
 
 // In-memory storage (use Redis or database in production)
-const rooms = new Map<string, ChatRoom>();
-const users = new Map<string, User>();
-const userRooms = new Map<string, string>(); // socketId -> roomId
+const rooms = new Map<string, ChatRoom>()
+const users = new Map<string, User>()
+const userRooms = new Map<string, string>() // socketId -> roomId
 
 // Initialize default rooms
 const defaultRooms = [
@@ -47,40 +42,69 @@ const defaultRooms = [
     messages: [],
     createdAt: new Date(),
   },
-];
+]
 
 defaultRooms.forEach((room) => {
-  rooms.set(room.id, room as ChatRoom);
-});
+  rooms.set(room.id, room as ChatRoom)
+})
 
 export function initializeSocket(httpServer: HTTPServer) {
-  const io = new SocketIOServer(httpServer, {
-    cors: {
-      origin:
-        process.env.NODE_ENV === "production"
-          ? process.env.FRONTEND_URL
-          : ["http://localhost:3000", "http://localhost:3001"],
-      methods: ["GET", "POST"],
-      credentials: true,
-    },
-    transports: ["websocket", "polling"],
-  });
+  const getCorsOrigin = () => {
+    if (process.env.NODE_ENV === "production") {
+      // Get frontend URL from environment variable
+      const frontendUrl = process.env.FRONTEND_URL
 
-  io.on("connection", (socket) => {
-    console.log(`User connected: ${socket.id}`);
+      if (!frontendUrl) {
+        console.warn("[Socket.IO] WARNING: FRONTEND_URL not set in production. CORS may fail.")
+        console.warn("[Socket.IO] Set FRONTEND_URL environment variable on Render to your Vercel domain")
+      }
 
-    const username = socket.handshake.auth.username;
-    if (!username) {
-      socket.emit("error", "Username is required");
-      socket.disconnect();
-      return;
+      // Return array of allowed origins
+      return [
+        frontendUrl,
+        // Add common Vercel domain patterns as fallback
+        process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
+      ].filter(Boolean) as string[]
     }
 
-    const validation = validateUsername(username);
+    // Development origins
+    return ["http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:3000"]
+  }
+
+  const io = new SocketIOServer(httpServer, {
+    cors: {
+      origin: getCorsOrigin(),
+      methods: ["GET", "POST"],
+      credentials: true,
+      allowEIO3: true, // Support older Socket.IO clients
+    },
+    transports: ["websocket", "polling"],
+    pingInterval: 25000,
+    pingTimeout: 60000,
+  })
+
+  console.log("[Socket.IO] Server initialized")
+  console.log("[Socket.IO] CORS Origins:", getCorsOrigin())
+  console.log("[Socket.IO] Environment:", process.env.NODE_ENV)
+
+  io.on("connection", (socket) => {
+    console.log(`[Socket.IO] User connected: ${socket.id}`)
+    console.log(`[Socket.IO] Client address: ${socket.handshake.address}`)
+
+    const username = socket.handshake.auth.username
+    if (!username) {
+      console.warn(`[Socket.IO] Connection rejected: No username provided`)
+      socket.emit("error", "Username is required")
+      socket.disconnect()
+      return
+    }
+
+    const validation = validateUsername(username)
     if (!validation.isValid) {
-      socket.emit("error", validation.error);
-      socket.disconnect();
-      return;
+      console.warn(`[Socket.IO] Connection rejected: Invalid username - ${validation.error}`)
+      socket.emit("error", validation.error)
+      socket.disconnect()
+      return
     }
 
     // Create user
@@ -89,87 +113,87 @@ export function initializeSocket(httpServer: HTTPServer) {
       username,
       joinedAt: new Date(),
       socketId: socket.id,
-    };
-    users.set(socket.id, user);
+    }
+    users.set(socket.id, user)
 
     // Send initial rooms list
     socket.on("get_rooms", () => {
       const roomsList = Array.from(rooms.values()).map((room) => ({
         ...room,
         users: room.users.map((u: User) => ({ ...u, socketId: undefined })), // Don't send socket IDs to client
-      }));
-      socket.emit("rooms_list", roomsList);
-    });
+      }))
+      socket.emit("rooms_list", roomsList)
+    })
 
     // Join room
     socket.on("join_room", (roomId: string) => {
       try {
-        const room = rooms.get(roomId);
+        const room = rooms.get(roomId)
         if (!room) {
-          socket.emit("error", "Room not found");
-          return;
+          socket.emit("error", "Room not found")
+          return
         }
 
         // Leave current room if in one
-        const currentRoomId = userRooms.get(socket.id);
+        const currentRoomId = userRooms.get(socket.id)
         if (currentRoomId) {
-          leaveRoom(socket, currentRoomId);
+          leaveRoom(socket, currentRoomId)
         }
 
         // Join new room
-        socket.join(roomId);
-        room.users.push(user);
-        userRooms.set(socket.id, roomId);
+        socket.join(roomId)
+        room.users.push(user)
+        userRooms.set(socket.id, roomId)
 
         // Send room data to user
         socket.emit("room_joined", {
           roomId,
           messages: room.messages.slice(-50), // Send last 50 messages
           users: room.users.map((u: User) => ({ ...u, socketId: undefined })),
-        });
+        })
 
         // Notify other users in room
         socket.to(roomId).emit("user_joined", {
           user: { ...user, socketId: undefined },
           users: room.users.map((u: User) => ({ ...u, socketId: undefined })),
-        });
+        })
 
-        console.log(`User ${username} joined room ${room.name}`);
+        console.log(`[Socket.IO] User ${username} joined room ${room.name}`)
       } catch (error) {
-        console.error("Error joining room:", error);
-        socket.emit("error", "Failed to join room");
+        console.error("[Socket.IO] Error joining room:", error)
+        socket.emit("error", "Failed to join room")
       }
-    });
+    })
 
     // Leave room
     socket.on("leave_room", (roomId: string) => {
-      leaveRoom(socket, roomId);
-    });
+      leaveRoom(socket, roomId)
+    })
 
     // Send message
     socket.on("send_message", (data: { roomId: string; content: string }) => {
       try {
-        const room = rooms.get(data.roomId);
+        const room = rooms.get(data.roomId)
         if (!room) {
-          socket.emit("error", "Room not found");
-          return;
+          socket.emit("error", "Room not found")
+          return
         }
 
         // Check if user is in the room
         if (!room.users.find((u: User) => u.id === socket.id)) {
-          socket.emit("error", "You are not in this room");
-          return;
+          socket.emit("error", "You are not in this room")
+          return
         }
 
-        const content = sanitizeMessage(data.content);
+        const content = sanitizeMessage(data.content)
         if (!content.trim()) {
-          socket.emit("error", "Message cannot be empty");
-          return;
+          socket.emit("error", "Message cannot be empty")
+          return
         }
 
         if (content.length > 500) {
-          socket.emit("error", "Message too long");
-          return;
+          socket.emit("error", "Message too long")
+          return
         }
 
         const message: Message = {
@@ -179,50 +203,45 @@ export function initializeSocket(httpServer: HTTPServer) {
           username,
           timestamp: new Date(),
           roomId: data.roomId,
-        };
+        }
 
-        room.messages.push(message);
+        room.messages.push(message)
 
         // Keep only last 1000 messages per room
         if (room.messages.length > 1000) {
-          room.messages = room.messages.slice(-1000);
+          room.messages = room.messages.slice(-1000)
         }
 
         // Broadcast message to all users in room
-        io.to(data.roomId).emit("new_message", message);
+        io.to(data.roomId).emit("new_message", message)
 
-        console.log(
-          `Message from ${username} in ${room.name}: ${content.substring(
-            0,
-            50
-          )}...`
-        );
+        console.log(`[Socket.IO] Message from ${username} in ${room.name}: ${content.substring(0, 50)}...`)
       } catch (error) {
-        console.error("Error sending message:", error);
-        socket.emit("error", "Failed to send message");
+        console.error("[Socket.IO] Error sending message:", error)
+        socket.emit("error", "Failed to send message")
       }
-    });
+    })
 
     // Create room
     socket.on("create_room", (data: { name: string; description?: string }) => {
       try {
-        const validation = validateRoomName(data.name);
+        const validation = validateRoomName(data.name)
         if (!validation.isValid) {
-          socket.emit("error", validation.error);
-          return;
+          socket.emit("error", validation.error)
+          return
         }
 
         // Check if room name already exists
         const existingRoom = Array.from(rooms.values()).find(
-          (room) => room.name.toLowerCase() === data.name.toLowerCase()
-        );
+          (room) => room.name.toLowerCase() === data.name.toLowerCase(),
+        )
 
         if (existingRoom) {
-          socket.emit("error", "Room name already exists");
-          return;
+          socket.emit("error", "Room name already exists")
+          return
         }
 
-        const roomId = generateId();
+        const roomId = generateId()
         const newRoom: ChatRoom = {
           id: roomId,
           name: data.name.trim(),
@@ -230,54 +249,58 @@ export function initializeSocket(httpServer: HTTPServer) {
           users: [],
           messages: [],
           createdAt: new Date(),
-        };
+        }
 
-        rooms.set(roomId, newRoom);
+        rooms.set(roomId, newRoom)
 
         // Broadcast updated rooms list to all users
         const roomsList = Array.from(rooms.values()).map((room) => ({
           ...room,
           users: room.users.map((u: User) => ({ ...u, socketId: undefined })),
-        }));
-        io.emit("rooms_list", roomsList);
+        }))
+        io.emit("rooms_list", roomsList)
 
-        console.log(`Room created: ${newRoom.name} by ${username}`);
+        console.log(`[Socket.IO] Room created: ${newRoom.name} by ${username}`)
       } catch (error) {
-        console.error("Error creating room:", error);
-        socket.emit("error", "Failed to create room");
+        console.error("[Socket.IO] Error creating room:", error)
+        socket.emit("error", "Failed to create room")
       }
-    });
+    })
 
     // Handle disconnect
     socket.on("disconnect", (reason) => {
-      console.log(`User disconnected: ${socket.id} (${username}) - ${reason}`);
+      console.log(`[Socket.IO] User disconnected: ${socket.id} (${username}) - Reason: ${reason}`)
 
       // Remove user from current room
-      const currentRoomId = userRooms.get(socket.id);
+      const currentRoomId = userRooms.get(socket.id)
       if (currentRoomId) {
-        leaveRoom(socket, currentRoomId, false); // Don't emit to socket since it's disconnected
+        leaveRoom(socket, currentRoomId, false) // Don't emit to socket since it's disconnected
       }
 
       // Clean up
-      users.delete(socket.id);
-      userRooms.delete(socket.id);
-    });
+      users.delete(socket.id)
+      userRooms.delete(socket.id)
+    })
+
+    socket.on("error", (error) => {
+      console.error(`[Socket.IO] Socket error for ${username}:`, error)
+    })
 
     // Helper function to leave room
     function leaveRoom(socket: any, roomId: string, emitToSocket = true) {
-      const room = rooms.get(roomId);
+      const room = rooms.get(roomId)
       if (room) {
-        socket.leave(roomId);
-        room.users = room.users.filter((u: User) => u.id !== socket.id);
-        userRooms.delete(socket.id);
+        socket.leave(roomId)
+        room.users = room.users.filter((u: User) => u.id !== socket.id)
+        userRooms.delete(socket.id)
 
         // Notify other users in room
         socket.to(roomId).emit("user_left", {
           userId: socket.id,
           users: room.users.map((u: User) => ({ ...u, socketId: undefined })),
-        });
+        })
 
-        console.log(`User ${username} left room ${room.name}`);
+        console.log(`[Socket.IO] User ${username} left room ${room.name}`)
       }
     }
 
@@ -285,9 +308,9 @@ export function initializeSocket(httpServer: HTTPServer) {
     const roomsList = Array.from(rooms.values()).map((room) => ({
       ...room,
       users: room.users.map((u: User) => ({ ...u, socketId: undefined })),
-    }));
-    socket.emit("rooms_list", roomsList);
-  });
+    }))
+    socket.emit("rooms_list", roomsList)
+  })
 
-  return io;
+  return io
 }
